@@ -5,13 +5,15 @@ import xml.etree.ElementTree as ET
 from optparse import OptionParser
 
 def get_lipsum(howmany, what, start_with_lipsum):
+    url = "https://www.lipsum.com/feed/xml"
 
-    query_str  = "amount=" + str(howmany)
-    query_str += "&what=" + what
-    query_str += "&start=" + start_with_lipsum
+    params = {
+            "amount": str(howmany),
+            "what": what,
+            "start": start_with_lipsum
+    }
 
-    url = "https://www.lipsum.com/feed/xml?" + query_str
-    f = requests.get(url)
+    f = requests.get(url, params=params)
 
     xml = ET.fromstring(f.content)
 
